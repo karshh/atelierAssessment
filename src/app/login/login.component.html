@@ -1,0 +1,34 @@
+<div class="container">
+	<div *ngIf="!isLoggedIn()">
+		<form [formGroup]="loginForm" (ngSubmit)="login()" class="col-lg-4 col-md-4 col-sm-8">
+			<div class="form-group">
+				<input type="email" name="username" [formControl]="username" class="form-control" placeholder="Email address"> 
+			</div>
+			<div class="form-group">
+				<input type="password" name="password" [formControl]="password" class="form-control" placeholder="Password"> 
+			</div>
+
+			<div class="form-group">
+				<button type="submit" class="btn btn-primary">Submit</button>
+			</div>
+
+			<p *ngIf="isLoggingIn()"><i class="fa  w3-spin fa-refresh"></i> Logging in.</p>
+			<p *ngIf="isLoginFailed()"><i class="fa fa-close"></i> Incorrect email/password.</p>
+			<p *ngIf="isServerError()"><i class="fa fa-close"></i> Server Error. Please try again later.</p>
+
+		</form>
+	</div>
+	
+	<div *ngIf="isLoggedIn()" class="container">
+			<p> You are logged in. </p>
+		<div class="btn-group" role="group">
+			<button type="button" class="btn btn-success btn-extra" (click)="ping()">Ping</button>
+			<button type="button" class="btn btn-danger btn-extra" (click)="logout()">Logout</button>
+		</div>
+			<p *ngIf="isPinging()">&emsp;<i class="fa  w3-spin fa-refresh"></i> Pinging.</p>
+			<p *ngIf="isPingSuccesful()">&emsp;<i class="fa fa-check"></i> Ping successful.</p>
+			<p *ngIf="isPingFailed()">&emsp;<i class="fa fa-close"></i> Ping Failed </p>	
+	</div>
+
+</div>
+
