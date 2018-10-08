@@ -1,15 +1,28 @@
 <div class="container">
-	<div *ngIf="!isLoggedIn()">
-		<form [formGroup]="loginForm" (ngSubmit)="login()" class="col-lg-4 col-md-4 col-sm-8">
+	
+	<div *ngIf="!isLoggedIn()" class="text-center">
+		<form [formGroup]="loginForm" (ngSubmit)="login()" class="col-lg-4 col-md-4 col-sm-8  login-container">
 			<div class="form-group">
 				<input type="email" name="username" [formControl]="username" class="form-control" placeholder="Email address"> 
+
+				<div *ngIf="username.errors && (username.dirty || username.touched)" class="text-left">
+				  	<font color="red">
+				  		<small *ngIf="username.errors.required"> *Email is required<br></small>
+				  		<small *ngIf="!username.errors.required && username.errors.email"> *Email must be valid type</small>
+				  	</font>
+				</div>	
 			</div>
 			<div class="form-group">
 				<input type="password" name="password" [formControl]="password" class="form-control" placeholder="Password"> 
+				<div *ngIf="password.errors && (password.dirty || password.touched)" class="text-left">
+				  	<font color="red">
+				  		<small *ngIf="password.errors.required"> *Subject is required</small>
+				  	</font>
+				</div>	
 			</div>
 
 			<div class="form-group">
-				<button type="submit" class="btn btn-primary">Submit</button>
+				<button type="submit" class="btn btn-primary" [disabled]="!loginForm.valid">Submit</button>
 			</div>
 
 			<p *ngIf="isLoggingIn()"><i class="fa  w3-spin fa-refresh"></i> Logging in.</p>

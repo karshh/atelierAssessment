@@ -1,3 +1,10 @@
+.login-container {
+    border-radius: 5px;
+    border: 1px solid grey;
+    padding: 20px; 
+}
+
 .btn-extra {
+	padding: 10px;
 	margin: 20px;
 }

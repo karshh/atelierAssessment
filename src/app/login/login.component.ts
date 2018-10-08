@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../AuthService/auth.service'
+import { AuthService } from '../auth/auth.service';
+import { PingStatusService } from '../ping-status/ping-status.service';
+import { LoginStatusService } from '../login-status/login-status.service';
 import { FormGroup, FormControl, Validators  } from '@angular/forms';
 
 
@@ -14,7 +16,9 @@ export class LoginComponent implements OnInit {
 	username: FormControl;
 	password: FormControl;
 
-	constructor(private authService: AuthService) { 
+	constructor(private authService: AuthService, 
+				private loginStatusService: LoginStatusService,
+				private pingStatusService: PingStatusService) { 
 
 		this.createFormControls();
 		this.loginForm = new FormGroup({
@@ -26,53 +30,60 @@ export class LoginComponent implements OnInit {
 	ngOnInit() {}
 
 
-	isLoginFailed():boolean {
-		return this.authService.isLoginFailed();
+	public isLoginFailed():boolean {
+		return this.loginStatusService.isLoginFailed();
 	}
 
-	isLoggedOut():boolean {
-		return this.authService.isLoggedOut();
+	public isLoggedOut():boolean {
+		return this.loginStatusService.isLoggedOut();
 	}
 
-	isLoggedIn():boolean {
-		return this.authService.isLoggedIn();
+	public isLoggedIn():boolean {
+		return this.loginStatusService.isLoggedIn();
 	}
 
-	isLoggingIn():boolean {
-		return this.authService.isLoggingIn();
+	public isLoggingIn():boolean {
+		return this.loginStatusService.isLoggingIn();
 	}
 
-	isPingSuccesful(): boolean {
-		return this.authService.isPingSuccesful();
+	public isServerError(): boolean {
+		return this.loginStatusService.isServerError();
 	}
 
-	isPingFailed(): boolean {
-		return this.authService.isPingFailed();
+	public isPingSuccesful(): boolean {
+		return this.pingStatusService.isPingSuccesful();
 	}
 
-	isPinging(): boolean {
-		return this.authService.isPinging();
+	public isPingFailed(): boolean {
+		return this.pingStatusService.isPingFailed();
 	}
 
-	isServerError(): boolean {
-		return this.authService.isServerError();
+	public isPinging(): boolean {
+		return this.pingStatusService.isPinging();
 	}
 
-	login() {
+	public login() {
+		this.loginStatusService.setLoggingIn();
 		this.authService.login(this.loginForm.value.username, this.loginForm.value.password).subscribe(
-			(response) => console.log("Login succesful."),
-			(error) => console.log("Login failed. Code = " + error.status)
+			(response) => this.loginStatusService.setLoggedIn(),
+			(error) => {
+				if (error.status == 400) this.loginStatusService.setLoginFailed();
+				else this.loginStatusService.setServerError();
+			}
 		);
 	}
 
-	logout() {
+	public logout() {
 		this.authService.logout();
+		this.loginStatusService.setLoggedOut();
+		this.pingStatusService.setUnpinged();
 	}
 
-	ping() {
+	public ping() {
+		this.pingStatusService.setPinging();
 		this.authService.ping().subscribe(
-			(response) => console.log("Ping succesful."),
-			(error) => console.log("Ping failed.")
+			(response) => this.pingStatusService.setPingSuccesful(),
+			(error) => this.pingStatusService.setPingFailed()
 		);
 	}
 
