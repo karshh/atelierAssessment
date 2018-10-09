@@ -2,13 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../auth/auth.service';
 import { PingStatusService } from '../ping-status/ping-status.service';
 import { LoginStatusService } from '../login-status/login-status.service';
-import { FormGroup, FormControl, Validators  } from '@angular/forms';
-
+import { FormsModule, ReactiveFormsModule,FormGroup, FormControl, Validators  } from '@angular/forms';
 
 @Component({
 	selector: 'app-login',
 	templateUrl: './login.component.html',
-	styleUrls: ['./login.component.css']
+	styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit {
 

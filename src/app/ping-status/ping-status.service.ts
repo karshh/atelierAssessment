@@ -13,7 +13,7 @@ enum PingStatus {
 export class PingStatusService {
 
 	private pingStatus: PingStatus;
-	
+
 	constructor() { 
 		this.setUnpinged();
 	}
@@ -28,6 +28,10 @@ export class PingStatusService {
 
 	public isPinging(): boolean {
 		return this.pingStatus == PingStatus.Pinging;
+	}
+
+	public isUnpinged(): boolean {
+		return this.pingStatus == PingStatus.Unpinged;
 	}
 
 	public setPingSuccesful(): void {

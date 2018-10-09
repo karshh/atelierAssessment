@@ -20,7 +20,7 @@ export class LoginStatusService {
 			this.setLoggedIn();
 		}
 		else {
-			this.isLoggedOut();
+			this.setLoggedOut();
 		} 
 	}
 
