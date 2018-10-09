@@ -19,7 +19,7 @@ describe('PingStatusService', () => {
     expect(service.isPingSuccesful()).toBe(false);
   }));
 
-  it('\'s pingstatus should be set to Pinging after calling setPinging.', inject([PingStatusService], (service: PingStatusService) => {
+  it('pingstatus should be set to Pinging after calling setPinging.', inject([PingStatusService], (service: PingStatusService) => {
     service.setPinging();
     expect(service.isUnpinged()).toBe(false);
     expect(service.isPinging()).toBe(true);
@@ -28,7 +28,7 @@ describe('PingStatusService', () => {
 
   }));
   
-  it('\'s pingstatus should be set to PingSuccesful after calling setPingSuccesful.', inject([PingStatusService], (service: PingStatusService) => {
+  it('pingstatus should be set to PingSuccesful after calling setPingSuccesful.', inject([PingStatusService], (service: PingStatusService) => {
     service.setPingSuccesful();
     expect(service.isUnpinged()).toBe(false);
     expect(service.isPinging()).toBe(false);
@@ -37,7 +37,7 @@ describe('PingStatusService', () => {
 
   }));
   
-  it('\'s pingstatus should be set to PingFailed after calling setPingFailed.', inject([PingStatusService], (service: PingStatusService) => {
+  it('pingstatus should be set to PingFailed after calling setPingFailed.', inject([PingStatusService], (service: PingStatusService) => {
     service.setPingFailed();
     expect(service.isUnpinged()).toBe(false);
     expect(service.isPinging()).toBe(false);
@@ -46,7 +46,7 @@ describe('PingStatusService', () => {
 
   }));
   
-  it('\'s pingstatus should be set to Unpinged after calling setUnpinged.', inject([PingStatusService], (service: PingStatusService) => {
+  it('pingstatus should be set to Unpinged after calling setUnpinged.', inject([PingStatusService], (service: PingStatusService) => {
     service.setUnpinged();
     expect(service.isUnpinged()).toBe(true);
     expect(service.isPinging()).toBe(false);
